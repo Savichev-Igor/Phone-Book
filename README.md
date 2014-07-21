@@ -1,7 +1,7 @@
 Phone-Book
 ==========
 
-Мой Круг (Яндекс) + VK.com/Импорт в Google Contacts или в .VCF
+Мой Круг (Яндекс) + VK.com. Импорт в Google Contacts или в .VCF
 
 ## Использование
 
