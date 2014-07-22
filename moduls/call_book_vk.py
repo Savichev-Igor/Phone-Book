@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import re
-import sys
 import vkontakte
 from vkappauth import VKAppAuth
 import click
@@ -16,14 +15,9 @@ class Vk_Contacts:
         self.password = password
 
     def auth(self):
-        try:
-            self.access_data = VKAppAuth().auth(self.email,
-                                                self.password,
-                                                self.app_id, self.scope)
-            print('\n' + "Your auth is success in VK.com" + '\n')
-        except:
-            print('\n' + "Check your input for VK.com")
-            sys.exit(0)
+        self.access_data = VKAppAuth().auth(self.email,
+                                            self.password,
+                                            self.app_id, self.scope)
         self.vk = vkontakte.API(token=self.access_data["access_token"])
 
     def take_friends_contacts(self):
@@ -34,7 +28,7 @@ class Vk_Contacts:
             if profile.get('mobile_phone'):
                 self.friends.append(profile)
         self.vk_numbers = {}
-        print('Taking mobile phones from VK' + '\n')
+        print('\n' + 'Taking mobile phones from VK' + '\n')
         with click.progressbar(self.friends) as bar:
             for friend in bar:
                 temp = re.findall('[0-9]', friend['mobile_phone'])
@@ -42,11 +36,4 @@ class Vk_Contacts:
                     good_number = myparser.edit(temp)
                     full_name = friend['last_name']+' '+friend['first_name']
                     self.vk_numbers[good_number] = full_name
-        print('\n')
         return self.vk_numbers
-
-
-def run(email, password):
-    session = Vk_Contacts(email, password)
-    session.auth()
-    return session.take_friends_contacts()

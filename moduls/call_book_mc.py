@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import sys
 import re
 from grab import Grab
 import click
@@ -20,11 +19,12 @@ class MyCircleParser:
         self.session.set_input('passwd', self.password)
         self.session.submit()
         self.check = re.findall(r"auth__social", self.session.response.body)
+
+    def check_auth(self):
         if len(self.check) != 0:
-            print('\n' + "Check your input for My Circle")
-            sys.exit(0)
+            return False
         else:
-            print('\n' + "Your auth is success in My Circle" + '\n')
+            return True
 
     def take_friends_contacts(self):
         self.session.go('http://moikrug.yandex.ru/')
@@ -32,7 +32,7 @@ class MyCircleParser:
         self.urls = re.findall(r'"name"><a href="http://(.+?).moikrug.ru/"',
                                self.session.response.body)
         self.cont_dict = {}
-        print('Taking mobile phone from My Circle' + '\n')
+        print("\n" + 'Taking mobile phone from My Circle' + '\n')
         with click.progressbar(range(len(self.urls))) as bar:
             for x in bar:
                 self.session.go('http://'+str(self.urls[x]) +
@@ -47,11 +47,4 @@ class MyCircleParser:
                     final_number = myparser.edit(number[0])
                     self.cont_dict.update({final_number:
                                           pytils.translit.translify(full_name[0])})
-        print('\n')
         return self.cont_dict
-
-
-def run(username, password):
-    session = MyCircleParser(username, password)
-    session.auth()
-    return session.take_friends_contacts()

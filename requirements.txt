@@ -1,7 +1,8 @@
-Python 2.7.8 (Зависимости не учтены)
+﻿Python 2.7.8 (Зависимости не учтены)
 --- Conctacts
 	-gdata
 	-vobject
+	-pytils
 --- VK.com
 	-vkAppAuth
 	-vkontakte2

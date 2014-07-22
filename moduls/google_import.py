@@ -30,10 +30,12 @@ class ImportGoogle:
 def run_import(email, password, final_dict):
     session = ImportGoogle(email, password, final_dict)
     session.auth()
+    print('\n' + "Your auth in Google is success" + '\n')
+    print('Importing...' + '\n')
     with click.progressbar(final_dict) as bar:
         for key in bar:
             try:
                 session.create_contact(final_dict[key], key)
             except:
-                print('\n' + '\n' + 'Something wrong with' + '\n')
+                print('\n' + 'Something wrong with' + '\n')
                 print(key + '\n')
