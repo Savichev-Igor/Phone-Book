@@ -7,6 +7,6 @@ Phone-Book
 
 - Сохраните данный репозиторий себе
 - Установите второй Python 
-- Учтите все модули, которые даны в requirements (Желательно через Pycharm [Чтобы учесть зависимости])
-- И в консоли же введите: python2 main.py | python main.py
+- pip install -r requirements.txt
+- python2 main.py
 - И вы увидите дальнейшие указания
